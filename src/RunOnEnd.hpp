@@ -41,6 +41,7 @@
 
 #include <functional>
 
+
 namespace siddiqsoft
 {
 	/// @brief A class to facilitate the execution of lambda when the object is destroyed.
@@ -53,15 +54,24 @@ namespace siddiqsoft
 		/// @param  ignored
 		RunOnEnd(RunOnEnd&) = delete;
 
+		/// @brief Not supported. Makes no sense to move another instance as the use-case should allow for a single task per callback.
+		/// @param  ignored
+		RunOnEnd(RunOnEnd&&) = delete;
+
 		/// @brief Not supported
 		/// @param  ignored
 		/// @return self
 		RunOnEnd& operator=(RunOnEnd&) = delete;
 
+		/// @brief Not supported
+		/// @param  ignored
+		/// @return self
+		RunOnEnd& operator=(RunOnEnd&&) = delete;
+
 		/// @brief Construct an object which holds the callback to be executed upon destruction
 		/// @param callback The callback takes nothing returns nothing
 		/// @param context Reference to the context
-		RunOnEnd(std::function<void()>&& callback) noexcept
+		explicit RunOnEnd(std::function<void()>&& callback) noexcept
 			: mCallback(std::move(callback))
 		{
 		}

@@ -9,8 +9,8 @@ RunOnEnd : Run a lambda in destructor
 ![](https://img.shields.io/azure-devops/coverage/siddiqsoft/siddiqsoft/10)
 
 
-# Usage
-
+# Objective
+- A simpler "run on end" vs. the custom deletor available via `std::unique_ptr<>`. It is important to note that we do not provide an "owning" helper as this is better accomplished via the destructor code for `std::unique_ptr<>`. Avoid writing code that exists in std.
 - Use the nuget [SiddiqSoft.RunOnEnd](https://www.nuget.org/packages/SiddiqSoft.RunOnEnd/)
 - Copy paste..whatever works.
 
@@ -33,8 +33,7 @@ TEST(examples, Example1)
             passTest = true;
         }};
     }
-    catch (...)
-    {
+    catch (...) {
         EXPECT_TRUE(false); // if we throw then the test fails.
     }
 
