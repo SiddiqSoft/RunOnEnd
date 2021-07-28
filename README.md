@@ -10,37 +10,38 @@ RunOnEnd : Run a lambda in destructor
 
 
 # Objective
-- A simpler "run on end" vs. the custom deletor available via `std::unique_ptr<>`. It is important to note that we do not provide an "owning" helper as this is better accomplished via the destructor code for `std::unique_ptr<>`. Avoid writing code that exists in std.
+- A simpler "run on end" vs. the custom deletor available via `std::unique_ptr<>`. It is important to note that we do not provide an "owning" helper as this is better accomplished via the destructor code for `std::unique_ptr<>`.
 - Use the nuget [SiddiqSoft.RunOnEnd](https://www.nuget.org/packages/SiddiqSoft.RunOnEnd/)
 - Copy paste..whatever works.
 
+# Usage
+
+The utility can be used to ensure you cleanup within a scope, update some global variable or use the definition to build your own auto-cleanup.
+
+Consider the following [example](tests/test.cpp) where the utility `UseWinsock` builds on `RunOnEnd` for its functionality.
 
 ```cpp
-#include "gtest/gtest.h"
-#include "siddiqsoft/RunOnEnd.hpp"
-
-
-TEST(examples, Example1)
+struct UseWinsock : private siddiqsoft::RunOnEnd
 {
-    bool passTest {false};
-
-    try
+    UseWinsock() noexcept
+        : m_rc(E_FAIL)
+        , siddiqsoft::RunOnEnd([&]() {
+            if (m_rc == S_OK) WSACleanup();
+        })
     {
-        // Use initializer list-style instantiation; we do not allow move/assignment construction.
-        // Note that the `()` is not required when the lambda/function takes no argument.
-        siddiqsoft::RunOnEnd roe {[&passTest] {
-            // Runs when this scope ends
-            passTest = true;
-        }};
-    }
-    catch (...) {
-        EXPECT_TRUE(false); // if we throw then the test fails.
+        ZeroMemory(&m_wsaData, sizeof(m_wsaData));
+        m_rc = WSAStartup(MAKEWORD(2, 2), &m_wsaData);
+        m_rc = (m_rc == 0) ? S_OK : WSAGetLastError();
     }
 
-    // Iff the lambda runs, it should be true
-    EXPECT_TRUE(passTest);
-}
+    operator bool() { return (m_rc == S_OK); }
+
+private:
+    int     m_rc;
+    WSADATA m_wsaData;
+};
 ```
+
 
 
 <small align="right">
