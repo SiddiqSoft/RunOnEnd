@@ -8,6 +8,7 @@ if(MSVC)
 endif()
 
 target_include_directories(runonendlib INTERFACE "${PROJECT_SOURCE_DIR}/runonendlib")
-install(FILES src/RunOnEnd.hpp 
-		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/siddiqsoft
+install(DIRECTORY "src/"
+		DESTINATION "include/siddiqsoft"
+		FILES_MATCHING PATTERN "*.hpp"
 )
