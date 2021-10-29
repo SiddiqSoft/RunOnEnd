@@ -21,7 +21,7 @@ target_include_directories(
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_20)
 
 #enable_testing()
-#add_subdirectory(tests)
+add_subdirectory(src)
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT ${PROJECT_NAME}_Targets
@@ -50,7 +50,6 @@ install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
               "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME})
 
-install(FILES *.hpp DESTINATION ${INCLUDE_INSTALL_DIR}/siddiqsoft)
 
 # Reference
 # https://dominikberner.ch/cmake-interface-lib/
