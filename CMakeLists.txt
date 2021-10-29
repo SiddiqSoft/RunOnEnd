@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
-project("RunOnEnd"	VERSION 1.2.1
-					DESCRIPTION "Header only library for run on end of scope"
-					HOMEPAGE_URL "https://github.com/siddiqsoft/RunOnEnd")
+project("RunOnEnd"	VERSION         1.2.1
+                    LANGUAGES       CXX
+					DESCRIPTION     "Header only library for run on end of scope"
+					HOMEPAGE_URL    "https://github.com/siddiqsoft/RunOnEnd")
 
 include(GNUInstallDirs)
 
@@ -21,6 +22,7 @@ install(TARGETS ${PROJECT_NAME}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file("${PROJECT_NAME}ConfigVersion.cmake"
@@ -43,3 +45,4 @@ install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME} DESTINATION include)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include DESTINATION include)
