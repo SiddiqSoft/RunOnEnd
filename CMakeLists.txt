@@ -50,8 +50,7 @@ install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
               "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME})
 
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME} DESTINATION include)
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include DESTINATION include)
+install(FILES *.hpp DESTINATION ${INCLUDE_INSTALL_DIR}/siddiqsoft)
 
 # Reference
 # https://dominikberner.ch/cmake-interface-lib/
