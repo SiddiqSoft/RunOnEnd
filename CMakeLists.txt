@@ -37,7 +37,7 @@ configure_package_config_file(
 
 install(EXPORT ${PROJECT_NAME}_Targets
         FILE ${PROJECT_NAME}Targets.cmake
-        NAMESPACE siddiqsoft::${PROJECT_NAME}
+        NAMESPACE siddiqsoft::
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
 
 install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
