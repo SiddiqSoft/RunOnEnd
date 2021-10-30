@@ -11,7 +11,7 @@ project("RunOnEnd"	VERSION         1.2.1
 
 include(GNUInstallDirs)
 
-
+message(STATUS "${PROJECT_NAME} - add library..")
 add_library(${PROJECT_NAME} INTERFACE)
 target_include_directories(
   ${PROJECT_NAME}
@@ -21,9 +21,11 @@ target_include_directories(
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_20)
 
 IF(BUILD_TESTING)
+    message(STATUS "${PROJECT_NAME} - Testing enabled")
 	enable_testing()
 ENDIF(BUILD_TESTING)
 
+message(STATUS "${PROJECT_NAME} - About to include src..")
 add_subdirectory(src)
 
 install(TARGETS ${PROJECT_NAME}
@@ -54,8 +56,10 @@ install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME})
 
 IF(BUILD_TESTING)
+    message(STATUS "${PROJECT_NAME} - Add the tests subdirectory.")
 	add_subdirectory(tests)
 ENDIF(BUILD_TESTING)
 
 # Reference
 # https://dominikberner.ch/cmake-interface-lib/
+message(STATUS "${PROJECT_NAME} - Finish ${PROJECT_NAME} main file..")
