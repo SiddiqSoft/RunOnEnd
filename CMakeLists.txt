@@ -20,7 +20,10 @@ target_include_directories(
 
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_20)
 
-#enable_testing()
+IF(BUILD_TESTING)
+	enable_testing()
+ENDIF(BUILD_TESTING)
+
 add_subdirectory(src)
 
 install(TARGETS ${PROJECT_NAME}
@@ -50,6 +53,9 @@ install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
               "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME})
 
+IF(BUILD_TESTING)
+	add_subdirectory(tests)
+ENDIF(BUILD_TESTING)
 
 # Reference
 # https://dominikberner.ch/cmake-interface-lib/
