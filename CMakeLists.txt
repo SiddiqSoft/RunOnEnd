@@ -18,6 +18,6 @@ add_library( ${PROJECT_NAME} INTERFACE )
 
 target_sources( ${PROJECT_NAME}
 				PRIVATE "tests/test.cpp"
-				PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/RunOnEnd.hpp")
+				PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/siddiqsoft/RunOnEnd.hpp")
 
 target_include_directories( ${PROJECT_NAME} INTERFACE include/)
