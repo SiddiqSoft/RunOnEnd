@@ -3,7 +3,7 @@
 #include <chrono>
 #include <thread>
 
-#include "../src/RunOnEnd.hpp"
+#include "../include/RunOnEnd.hpp"
 
 
 TEST(examples, Example1)
