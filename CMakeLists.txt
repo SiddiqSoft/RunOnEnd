@@ -20,3 +20,4 @@ target_sources( ${PROJECT_NAME}
 				PRIVATE "tests/test.cpp"
 				PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/RunOnEnd.hpp"
 )
+target_include_directories( ${PROJECT_NAME} INTERFACE siddiqsoft)
