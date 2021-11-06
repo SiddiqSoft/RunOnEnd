@@ -3,7 +3,7 @@
 # https://github.com/siddiqsoft/RunOnEnd
 #
 
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.21)
 
 project(RunOnEnd
 		VERSION         1.2.1
@@ -11,7 +11,21 @@ project(RunOnEnd
 		DESCRIPTION     "Header only library for run on end of scope"
 		HOMEPAGE_URL    "https://github.com/siddiqsoft/RunOnEnd")
 
+##
+## MAIN_PROJECT CHECK
+## determine if nlohmann_json is built as a subproject (using add_subdirectory) or if it is the main project
+##
+set(MAIN_PROJECT OFF)
+if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+    set(MAIN_PROJECT ON)
+endif()
+
+option(RunOnEnd_BuildTests          "Build the unit tests when BUILD_TESTING is enabled." ${MAIN_PROJECT})
+option(RunOnEnd_Install             "Install CMake targets during install step." ${MAIN_PROJECT})
+
+include(ExternalProject)
 include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
 message(STATUS "${PROJECT_NAME} - add library..`${CMAKE_CURRENT_SOURCE_DIR}`")
 add_library( ${PROJECT_NAME} INTERFACE )
@@ -21,3 +35,13 @@ target_sources( ${PROJECT_NAME}
 				PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/siddiqsoft/RunOnEnd.hpp")
 
 target_include_directories( ${PROJECT_NAME} INTERFACE include/)
+
+##
+## TESTS
+## create and configure the unit test target
+##
+if (RunOnEnd_BuildTests)
+    include(CTest)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
