@@ -11,6 +11,10 @@ project(RunOnEnd
 		DESCRIPTION     "Header only library for run on end of scope"
 		HOMEPAGE_URL    "https://github.com/siddiqsoft/RunOnEnd")
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
+
+
 ##
 ## MAIN_PROJECT CHECK
 ## determine if nlohmann_json is built as a subproject (using add_subdirectory) or if it is the main project
@@ -26,7 +30,6 @@ option(RunOnEnd_Install             "Install CMake targets during install step."
 include(ExternalProject)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-include(tests)
 
 message(STATUS "${PROJECT_NAME} - add library..`${CMAKE_CURRENT_SOURCE_DIR}`")
 add_library( ${PROJECT_NAME} INTERFACE )
