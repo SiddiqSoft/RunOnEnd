@@ -26,6 +26,7 @@ option(RunOnEnd_Install             "Install CMake targets during install step."
 include(ExternalProject)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
+include(tests)
 
 message(STATUS "${PROJECT_NAME} - add library..`${CMAKE_CURRENT_SOURCE_DIR}`")
 add_library( ${PROJECT_NAME} INTERFACE )
