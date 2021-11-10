@@ -5,6 +5,11 @@
 
 #include "../include/siddiqsoft/RunOnEnd.hpp"
 
+int main(int argc, char** argv)
+{
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
+}
 
 TEST(examples, Example1)
 {
@@ -14,10 +19,11 @@ TEST(examples, Example1)
 	{
 		// Use initializer list-style instantiation; we do not allow move/assignment construction.
 		// Note that the `()` is not required when the lambda/function takes no argument.
-		siddiqsoft::RunOnEnd roe {[&passTest] {
-			// Runs when this scope ends
-			passTest = true;
-		}};
+		siddiqsoft::RunOnEnd roe {[&passTest]
+		                          {
+									  // Runs when this scope ends
+									  passTest = true;
+								  }};
 	}
 	catch (...)
 	{
@@ -36,11 +42,12 @@ TEST(examples, Example2)
 
 	try
 	{
-		siddiqsoft::RunOnEnd roe {[&passTest, &ttx] {
-			// Runs when this scope ends
-			passTest = true;
-			ttx      = std::chrono::system_clock::now().time_since_epoch().count();
-		}};
+		siddiqsoft::RunOnEnd roe {[&passTest, &ttx]
+		                          {
+									  // Runs when this scope ends
+									  passTest = true;
+									  ttx      = std::chrono::system_clock::now().time_since_epoch().count();
+								  }};
 	}
 	catch (...)
 	{
@@ -65,9 +72,11 @@ TEST(examples, Example3)
 	{
 		UseWinsock() noexcept
 			: m_rc(E_FAIL)
-			, siddiqsoft::RunOnEnd([&]() {
-				if (m_rc == S_OK) std::cerr << "Invoke WSACleanup():" << WSACleanup() << std::endl;
-			})
+			, siddiqsoft::RunOnEnd(
+					  [&]()
+					  {
+						  if (m_rc == S_OK) std::cerr << "Invoke WSACleanup():" << WSACleanup() << std::endl;
+					  })
 		{
 			ZeroMemory(&m_wsaData, sizeof(m_wsaData));
 			m_rc = WSAStartup(MAKEWORD(2, 2), &m_wsaData);
