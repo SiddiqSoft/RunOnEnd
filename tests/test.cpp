@@ -59,7 +59,7 @@ TEST(examples, Example2)
 	EXPECT_NE(0, ttx);
 }
 
-
+#if defined(_WIN32) || defined(_WIN64)
 #include <winsock.h>
 #pragma comment(lib, "ws2_32.lib")
 
@@ -108,5 +108,4 @@ TEST(examples, Example3)
 	EXPECT_EQ(SOCKET_ERROR, WSACleanup());
 	EXPECT_EQ(WSANOTINITIALISED, GetLastError());
 }
-
-#include <winsock.h>
+#endif
