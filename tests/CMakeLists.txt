@@ -26,8 +26,10 @@ FetchContent_Declare(googletest
                     GIT_SHALLOW     TRUE
                     GIT_PROGRESS    TRUE)
 
+message(STATUS "${PROJECT_NAME} - Download googletest..")
 FetchContent_MakeAvailable(googletest)
 
+message(STATUS "${PROJECT_NAME} - Completed googletest..")
 message(STATUS "${PROJECT_NAME} - googletest source_dir: ${googletest_SOURCE_DIR}")
 message(STATUS "${PROJECT_NAME} - googletest binary_dir: ${googletest_BINARY_DIR}")
 message(STATUS "${PROJECT_NAME} - googletest populated: ${googletest_POPULATED}")
