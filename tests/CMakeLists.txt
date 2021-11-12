@@ -19,6 +19,8 @@ if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 19.12.25835)
     set(CMAKE_CXX20_EXTENSION_COMPILE_OPTION "-std:c++latest")
 endif()
 
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE BOOL "")
+
 message(STATUS "${PROJECT_NAME} - About to get googletest..")
 FetchContent_Declare(googletest
                     GIT_REPOSITORY  "https://github.com/google/googletest"
