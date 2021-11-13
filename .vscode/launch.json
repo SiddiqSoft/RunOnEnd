@@ -4,11 +4,23 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+    {
+        "name": "(lldb) Launch",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "/Users/maas/Projects/RunOnEnd/build/tests/basic_tests",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}/build/tests",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb"
+    },
         {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/a.out",
+            "program": "${workspaceFolder}/build/basic_tests",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
