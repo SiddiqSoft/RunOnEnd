@@ -20,7 +20,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/basic_tests",
+            "program": "${workspaceFolder}/build/tests/basic_tests",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
