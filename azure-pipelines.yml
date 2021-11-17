@@ -46,6 +46,12 @@ steps:
     vstsFeed: 'ec2759e0-0587-4306-8a8d-8695f15e2336'
   continueOnError: true
 
+- task: run-cmake@0
+  inputs:
+    cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
+    cmakeBuildType: 'Release'
+    cmakeGenerator: 'Ninja'
+
 - task: VSBuild@1
   displayName: 'Build solution RunOnEnd.sln RELEASE'
   inputs:
