@@ -13,7 +13,6 @@ pool:
   name: Default
   demands:
   - cmake
-  - msbuild
 
 variables:
   buildPlatform: 'x64'
