@@ -41,6 +41,7 @@ steps:
 
 - task: CMake@1
   inputs:
+    workingDirectory: '.'
     cmakeArgs: '-DGV=$(GitVersion.NugetVersionV2)'
 
 #- task: run-cmake@0
