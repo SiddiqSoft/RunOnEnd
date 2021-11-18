@@ -31,7 +31,7 @@ include(ExternalProject)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-message(STATUS "${PROJECT_NAME} - add library..`${CMAKE_CURRENT_SOURCE_DIR}`")
+message(STATUS "${PROJECT_NAME} - add library v`$ENV{GV}`..`${CMAKE_CURRENT_SOURCE_DIR}`")
 add_library( ${PROJECT_NAME} INTERFACE )
 
 target_sources( ${PROJECT_NAME}
