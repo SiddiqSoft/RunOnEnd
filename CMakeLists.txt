@@ -6,7 +6,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(RunOnEnd
-		VERSION         1.2.1
+		VERSION         $ENV{GitVersion.Major}.$ENV{GitVersion.Minor}.$ENV{GitVersion.Patch}
         LANGUAGES       CXX
 		DESCRIPTION     "Header only library for run on end of scope"
 		HOMEPAGE_URL    "https://github.com/siddiqsoft/RunOnEnd")
