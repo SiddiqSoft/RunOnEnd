@@ -24,9 +24,18 @@ steps:
     versionSpec: '6.0.0'
     checkLatest: true
 
-- task: GitVersion@5
+#- task: GitVersion@5
+#  inputs:
+#    runtime: 'full'
+#    configFilePath: 'GitVersion.yml'
+
+- task: gitversion/setup@0
   inputs:
-    runtime: 'full'
+    versionSpec: '5.x'
+
+- task: gitversion/execute@0
+  inputs:
+    useConfigFile: true
     configFilePath: 'GitVersion.yml'
 
 - script: echo %Action%%BuildVersion%
