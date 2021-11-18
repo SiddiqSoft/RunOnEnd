@@ -4,10 +4,14 @@ include(ExternalProject)
 include(FetchContent)
 find_package(Git REQUIRED)
 
-project(basic_tests CXX)
+project(basic_tests
+		VERSION         ${GV}
+    LANGUAGES       CXX
+		DESCRIPTION     "Tests for Header only library for run on end of scope"
+		HOMEPAGE_URL    "https://github.com/siddiqsoft/RunOnEnd")
 
 # Set the flag for MSVC to static link to MSVCRT
-set_property(TARGET ${PROJEC_NAME} PROPERTY
+set_property(TARGET ${PROJECT_NAME} PROPERTY
   MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
   
 message(STATUS "${PROJECT_NAME} - Started")
@@ -36,6 +40,6 @@ message(STATUS "${PROJECT_NAME} - googletest source_dir: ${googletest_SOURCE_DIR
 message(STATUS "${PROJECT_NAME} - googletest binary_dir: ${googletest_BINARY_DIR}")
 message(STATUS "${PROJECT_NAME} - googletest populated: ${googletest_POPULATED}")
 
+include(GoogleTest)
 add_executable(${PROJECT_NAME} test.cpp)
-target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
-add_test(${PROJECT_NAME} tests COMMAND test)
+gtest_discover_tests(${PROJECT_NAME})
