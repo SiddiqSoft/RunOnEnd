@@ -45,6 +45,7 @@ target_include_directories( ${PROJECT_NAME} INTERFACE include/)
 ## create and configure the unit test target
 ##
 if (RunOnEnd_BuildTests)
+    message(STATUS "${PROJECT_NAME} - run tests..")
     include(CTest)
     enable_testing()
     add_subdirectory(tests)
