@@ -39,11 +39,15 @@ steps:
     Action: '##vso[build.updatebuildnumber]'
     BuildVersion: $(GitVersion.NugetVersionV2)
 
-- task: run-cmake@0
+- task: CMake@1
   inputs:
-    cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
-    cmakeBuildType: 'Release'
-    cmakeGenerator: 'Ninja'
+    cmakeArgs: '-DGV=$(GitVersion.NugetVersionV2)'
+
+#- task: run-cmake@0
+#  inputs:
+#    cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
+#    cmakeBuildType: 'Release'
+#    cmakeGenerator: 'Ninja'
 
 - task: PublishTestResults@2
   displayName: 'Publish Release Test Results **/TEST-*.xml'
