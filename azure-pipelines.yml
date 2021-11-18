@@ -42,7 +42,7 @@ steps:
 - task: CMake@1
   inputs:
     workingDirectory: '.'
-    cmakeArgs: '-DGV=$(GitVersion.NugetVersionV2)'
+    cmakeArgs: '-DGV=$(GitVersion.NugetVersionV2) -D RunOnEnd_BuildTests=ON'
 
 #- task: run-cmake@0
 #  inputs:
