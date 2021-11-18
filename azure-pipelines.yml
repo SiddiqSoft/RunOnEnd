@@ -24,11 +24,6 @@ steps:
     versionSpec: '6.0.0'
     checkLatest: true
 
-#- task: GitVersion@5
-#  inputs:
-#    runtime: 'full'
-#    configFilePath: 'GitVersion.yml'
-
 - task: gitversion/setup@0
   inputs:
     versionSpec: '5.x'
@@ -49,3 +44,47 @@ steps:
     cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
     cmakeBuildType: 'Release'
     cmakeGenerator: 'Ninja'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Release Test Results **/TEST-*.xml'
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TestResults/basic_tests.xml'
+    mergeTestResults: true
+    buildPlatform: 'x64'
+    buildConfiguration: 'Release'
+  continueOnError: true
+
+- task: NuGetCommand@2
+  displayName: 'NuGet pack'
+  inputs:
+    command: 'pack'
+    packagesToPack: 'nuget/siddiqsoft.RunOnEnd.nuspec;!nuget/siddiqsoft.RunOnEnd.symbols.nuspec'
+    versioningScheme: 'off'
+    buildProperties: 'VERSION=$(build.buildNumber)'
+#  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+
+- task: NuGetCommand@2
+  displayName: 'NuGet push'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg;build/*.nupkg;!build/*symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'sqs-nuget'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'github-packages-sqs'
+    repositoryName: 'SiddiqSoft/RunOnEnd'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'userSpecifiedTag'
+    tag: '$(build.buildNumber)'
+    title: 'v$(build.buildNumber)'
+    releaseNotesSource: 'inline'
+    isPreRelease: true
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+ 
