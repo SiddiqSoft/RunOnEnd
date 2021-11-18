@@ -6,7 +6,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(RunOnEnd
-		VERSION         $ENV{GV}
+		VERSION         ${GV}
         LANGUAGES       CXX
 		DESCRIPTION     "Header only library for run on end of scope"
 		HOMEPAGE_URL    "https://github.com/siddiqsoft/RunOnEnd")
@@ -24,14 +24,14 @@ if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     set(MAIN_PROJECT ON)
 endif()
 
-option(RunOnEnd_BuildTests          "Build the unit tests when BUILD_TESTING is enabled." ${MAIN_PROJECT})
+option(RunOnEnd_BuildTests          "Build the unit tests when `RunOnEnd_BuildTests` is enabled." ${MAIN_PROJECT})
 option(RunOnEnd_Install             "Install CMake targets during install step." ${MAIN_PROJECT})
 
 include(ExternalProject)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-message(STATUS "${PROJECT_NAME} - add library v`$ENV{GV}`..`${CMAKE_CURRENT_SOURCE_DIR}`")
+message(STATUS "${PROJECT_NAME} - add library v`${GV}`..`${CMAKE_CURRENT_SOURCE_DIR}`")
 add_library( ${PROJECT_NAME} INTERFACE )
 
 target_sources( ${PROJECT_NAME}
