@@ -11,8 +11,8 @@ project(basic_tests
 		HOMEPAGE_URL    "https://github.com/siddiqsoft/RunOnEnd")
 
 # Set the flag for MSVC to static link to MSVCRT
-set_property(TARGET ${PROJECT_NAME} PROPERTY
-  MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+#set_property(TARGET ${PROJECT_NAME} PROPERTY
+#  MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
   
 message(STATUS "${PROJECT_NAME} - Started")
 
