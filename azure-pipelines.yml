@@ -41,10 +41,8 @@ steps:
 
 - task: run-cmake@0
   inputs:
-    cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
-    cmakeBuildType: 'Release'
-    cmakeGenerator: 'Ninja'
-    buildWithCMakeArgs: '-DGV=$(GitVersion.Major).$(GitVersion.Minor).$(GitVersion.Patch) -DRunOnEnd_BuildTests=ON'
+    cmakeListsOrSettingsJson: 'CMakeListsTxtAdvanced'
+    cmakeAppendedArgs: '-DGV=$(GitVersion.Major).$(GitVersion.Minor).$(GitVersion.Patch) -DRunOnEnd_BuildTests=ON'
 
 - task: PublishTestResults@2
   displayName: 'Publish Release Test Results **/TEST-*.xml'
