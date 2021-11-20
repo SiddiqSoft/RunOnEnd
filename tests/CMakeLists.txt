@@ -10,10 +10,7 @@ project(basic_tests
 		DESCRIPTION     "Tests for Header only library for run on end of scope"
 		HOMEPAGE_URL    "https://github.com/siddiqsoft/RunOnEnd")
 
-# Set the flag for MSVC to static link to MSVCRT
-#set_property(TARGET ${PROJECT_NAME} PROPERTY
-#  MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-  
+ 
 message(STATUS "${PROJECT_NAME} - Started")
 
 enable_testing()
@@ -40,6 +37,9 @@ message(STATUS "${PROJECT_NAME} - googletest source_dir: ${googletest_SOURCE_DIR
 message(STATUS "${PROJECT_NAME} - googletest binary_dir: ${googletest_BINARY_DIR}")
 message(STATUS "${PROJECT_NAME} - googletest populated: ${googletest_POPULATED}")
 
-include(GoogleTest)
+# Set the flag for MSVC to static link to MSVCRT
+set_property(TARGET ${PROJECT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
+include(googletest)
 add_executable(${PROJECT_NAME} test.cpp)
 gtest_discover_tests(${PROJECT_NAME})
