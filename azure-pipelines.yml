@@ -207,8 +207,8 @@ stages:
         action: 'create'
         target: '$(Build.SourceVersion)'
         tagSource: 'userSpecifiedTag'
-        tag: '$(build.buildNumber)'
-        title: 'v$(build.buildNumber)'
+        tag: '$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)'
+        title: 'v$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)'
         releaseNotesSource: 'inline'
         releaseNotesInline: 'v$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource). Documentation https://github.com/SiddiqSoft/RunOnEnd'
         isPreRelease: true
