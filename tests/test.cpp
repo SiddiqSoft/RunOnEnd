@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 
 #include <chrono>
+#include <exception>
+#include <stdexcept>
 #include <thread>
 
 #include "../include/siddiqsoft/RunOnEnd.hpp"
@@ -14,10 +16,11 @@ TEST(examples, Example1)
 	{
 		// Use initializer list-style instantiation; we do not allow move/assignment construction.
 		// Note that the `()` is not required when the lambda/function takes no argument.
-		siddiqsoft::RunOnEnd roe {[&passTest] {
-			// Runs when this scope ends
-			passTest = true;
-		}};
+		siddiqsoft::RunOnEnd roe {[&passTest]
+		                          {
+									  // Runs when this scope ends
+									  passTest = true;
+								  }};
 	}
 	catch (...)
 	{
@@ -36,11 +39,12 @@ TEST(examples, Example2)
 
 	try
 	{
-		siddiqsoft::RunOnEnd roe {[&passTest, &ttx] {
-			// Runs when this scope ends
-			passTest = true;
-			ttx      = std::chrono::system_clock::now().time_since_epoch().count();
-		}};
+		siddiqsoft::RunOnEnd roe {[&passTest, &ttx]
+		                          {
+									  // Runs when this scope ends
+									  passTest = true;
+									  ttx      = std::chrono::system_clock::now().time_since_epoch().count();
+								  }};
 	}
 	catch (...)
 	{
@@ -52,7 +56,7 @@ TEST(examples, Example2)
 	EXPECT_NE(0, ttx);
 }
 
-#if defined (WIN32) || defined(WIN64)
+#if defined(WIN32) || defined(WIN64)
 #include <winsock.h>
 #pragma comment(lib, "ws2_32.lib")
 
@@ -65,9 +69,11 @@ TEST(examples, Example3)
 	{
 		UseWinsock() noexcept
 			: m_rc(E_FAIL)
-			, siddiqsoft::RunOnEnd([&]() {
-				if (m_rc == S_OK) std::cerr << "Invoke WSACleanup():" << WSACleanup() << std::endl;
-			})
+			, siddiqsoft::RunOnEnd(
+					  [&]()
+					  {
+						  if (m_rc == S_OK) std::cerr << "Invoke WSACleanup():" << WSACleanup() << std::endl;
+					  })
 		{
 			ZeroMemory(&m_wsaData, sizeof(m_wsaData));
 			m_rc = WSAStartup(MAKEWORD(2, 2), &m_wsaData);
@@ -102,3 +108,20 @@ TEST(examples, Example3)
 
 #include <winsock.h>
 #endif
+
+TEST(examples, Example4)
+{
+	bool passTest = false;
+	try
+	{
+		siddiqsoft::RunOnEnd roe {[&passTest] { passTest = true; }};
+
+		// Throw deliberately!
+		throw std::runtime_error("Throw so we check for success.");
+	}
+	catch (std::runtime_error&)
+	{
+		// We throw inside and we expect that the ROE is invoked.
+		EXPECT_TRUE(passTest);
+	}
+}
