@@ -1,7 +1,6 @@
 RunOnEnd : Run a lambda in destructor
 -------------------------------------------
 
-[![CodeQL](https://github.com/SiddiqSoft/RunOnEnd/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/SiddiqSoft/RunOnEnd/actions/workflows/codeql-analysis.yml)
 [![Build Status](https://dev.azure.com/siddiqsoft/siddiqsoft/_apis/build/status/SiddiqSoft.RunOnEnd?branchName=main)](https://dev.azure.com/siddiqsoft/siddiqsoft/_build/latest?definitionId=10&branchName=main)
 ![](https://img.shields.io/nuget/v/SiddiqSoft.RunOnEnd)
 ![](https://img.shields.io/github/v/tag/SiddiqSoft/RunOnEnd)
@@ -42,10 +41,20 @@ private:
 };
 ```
 
+## Import
 
+- Use the [SiddiqSoft.RunOnEnd](https://nuget.org/packages/SiddiqSoft.RunOnEnd) nuget package.
+- Use CMP package import it into your project's CMakeLists
+
+```cpp
+    CPMAddPackage("gh:SiddiqSoft/RunOnEnd#1.3.0");
+    ..
+    ..
+    target_link_libraries(your-project PRIVATE runonend::runonend)
+```
 
 <small align="right">
 
-&copy; 2021 Siddiq Software LLC. All rights reserved.
+&copy; 2021-2024 Siddiq Software LLC. All rights reserved.
 
 </small>
