@@ -3,7 +3,7 @@
 #include <chrono>
 #include <thread>
 
-#include "../src/RunOnEnd.hpp"
+#include "../include/siddiqsoft/RunOnEnd.hpp"
 
 
 TEST(examples, Example1)
@@ -52,7 +52,7 @@ TEST(examples, Example2)
 	EXPECT_NE(0, ttx);
 }
 
-
+#if defined (WIN32) || defined(WIN64)
 #include <winsock.h>
 #pragma comment(lib, "ws2_32.lib")
 
@@ -101,3 +101,4 @@ TEST(examples, Example3)
 }
 
 #include <winsock.h>
+#endif
