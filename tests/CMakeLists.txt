@@ -1,4 +1,4 @@
-if(${BUILD_TESTS})
+if(${${PROJECT_NAME}_BUILD_TESTS})
     set(TESTPROJ ${PROJECT_NAME}_tests)
 
     cpmaddpackage("gh:google/googletest#v1.15.2")
@@ -9,8 +9,8 @@ if(${BUILD_TESTS})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -fprofile-arcs -ftest-coverage -fprofile-instr-generate -fcoverage-mapping")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -fprofile-arcs -ftest-coverage -fprofile-instr-generate -fcoverage-mapping")
     set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fprofile-instr-generate")
-    message(STATUS "Setting compiler flags for coverage: ${CMAKE_CXX_FLAGS}")
-    message(STATUS "Setting linker flags for coverage  : ${CMAKE_LINKER_FLAGS}")
+    message(STATUS "${TESTPROJ} - Setting compiler flags for coverage: ${CMAKE_CXX_FLAGS}")
+    message(STATUS "${TESTPROJ} - Setting linker flags for coverage  : ${CMAKE_LINKER_FLAGS}")
 
     target_sources( ${TESTPROJ}
                     PRIVATE
@@ -29,5 +29,5 @@ if(${BUILD_TESTS})
     gtest_discover_tests(${TESTPROJ} XML_OUTPUT_DIR "${PROJECT_SOURCE_DIR}/tests/results")
 
     include(CTest)
-    message(STATUS "  Finished configuring for ${PROJECT_NAME} -- ${TESTPROJ} BUILD_TESTS = ${BUILD_TESTS}")
+    message(STATUS "  Finished configuring for ${PROJECT_NAME} -- ${TESTPROJ} BUILD_TESTS = ${${PROJECT_NAME}_BUILD_TESTS}")
 endif()
