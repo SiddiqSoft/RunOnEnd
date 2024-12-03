@@ -76,7 +76,7 @@ stages:
         configFilePath: 'GitVersion.yml'
 
     # Set the flags for testing, build here.
-    # BUILD_TESTS=ON
+    # RunOnEnd_BUILD_TESTS=ON
     - task: CMake@1
       displayName: 'CMake Configure $(cmake.preset)'
       inputs:
@@ -162,6 +162,19 @@ stages:
         - Agent.OS -equals $(osName)
 
     steps:
+    - task: gitversion/setup@3.0.0
+      displayName: 'Install GitVersion..'
+      inputs:
+        versionSpec: '6.x'
+        preferLatestVersion: true
+
+    - task: gitversion/execute@3.0.0
+      displayName: 'Determine Version..'
+      name: version_step
+      inputs:
+        useConfigFile: true
+        configFilePath: 'GitVersion.yml'
+
     - task: NuGetToolInstaller@1
       displayName: 'Install Nuget'
       inputs:
@@ -174,7 +187,7 @@ stages:
         command: 'pack'
         packagesToPack: 'pack/*.nuspec'
         versioningScheme: 'off'
-        buildProperties: 'VERSION=$(build.buildNumber)'
+        buildProperties: 'VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)'
       condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Windows'))
 
     - task: NuGetCommand@2
@@ -197,7 +210,7 @@ stages:
         tag: '$(build.buildNumber)'
         title: 'v$(build.buildNumber)'
         releaseNotesSource: 'inline'
-        releaseNotesInline: 'Documentation https://github.com/SiddiqSoft/RunOnEnd'
+        releaseNotesInline: 'v$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource). Documentation https://github.com/SiddiqSoft/RunOnEnd'
         isPreRelease: true
         changeLogCompareToRelease: 'lastFullRelease'
         changeLogType: 'commitBased'
