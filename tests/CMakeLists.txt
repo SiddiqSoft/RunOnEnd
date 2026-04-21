@@ -1,7 +1,7 @@
 if(${${PROJECT_NAME}_BUILD_TESTS})
     set(TESTPROJ ${PROJECT_NAME}_tests)
 
-    cpmaddpackage("gh:google/googletest#v1.15.2")
+    cpmaddpackage("gh:google/googletest#v1.17.0")
 
     add_executable(${TESTPROJ})
 

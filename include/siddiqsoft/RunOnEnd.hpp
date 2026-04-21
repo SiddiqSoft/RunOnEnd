@@ -70,16 +70,24 @@ namespace siddiqsoft
 
 		/// @brief Construct an object which holds the callback to be executed upon destruction
 		/// @param callback The callback takes nothing returns nothing
-		/// @param context Reference to the context
+		/// @note The callback should not throw; exceptions are caught in the destructor to preserve the noexcept guarantee.
 		explicit RunOnEnd(std::function<void()>&& callback) noexcept
 			: mCallback(std::move(callback))
 		{
 		}
 
 		/// @brief Invoke the callback if present.
+		/// @note Exceptions from the callback are silently caught to preserve noexcept guarantee.
 		~RunOnEnd() noexcept
 		{
-			if (mCallback) mCallback();
+			try
+			{
+				if (mCallback) mCallback();
+			}
+			catch (...)
+			{
+				// Swallow exceptions to avoid std::terminate from a noexcept destructor.
+			}
 		}
 
 	private:
