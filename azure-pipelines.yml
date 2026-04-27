@@ -182,7 +182,10 @@ stages:
         versionSpec: '>=6.0.0-0'
         checkLatest: true
     
-    - bash: echo "VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)"
+    - task: CmdLine@2
+      displayName: "Debug Step"
+      inputs:
+        script: echo "VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)"
     
     - task: NuGetCommand@2
       displayName: 'NuGet pack'
