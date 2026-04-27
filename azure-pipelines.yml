@@ -75,6 +75,11 @@ stages:
         useConfigFile: true
         configFilePath: 'GitVersion.yml'
 
+    - task: CmdLine@2
+      displayName: 'Debug Step'
+      inputs:
+        script: echo "VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)"
+
     # Set the flags for testing, build here.
     # RunOnEnd_BUILD_TESTS=ON
     - task: CMake@1
