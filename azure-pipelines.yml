@@ -190,7 +190,13 @@ stages:
     - task: CmdLine@2
       displayName: 'Debug Step'
       inputs:
-        script: echo 'VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)'
+        script: |
+          echo 'VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)'
+          echo "VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)"
+          echo "v  -- $(GITVERSION_MAJORMINORPATCH)"
+          echo "v. -- $(GITVERSION_COMMITSSINCEVERSIONSOURCE)"
+          echo "v  -- %GITVERSION_MAJORMINORPATCH%"
+          echo "v. -- %GITVERSION_COMMITSSINCEVERSIONSOURCE%"
     
     - task: NuGetCommand@2
       displayName: 'NuGet pack'
