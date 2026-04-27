@@ -75,11 +75,6 @@ stages:
         useConfigFile: true
         configFilePath: 'GitVersion.yml'
 
-    - task: CmdLine@2
-      displayName: 'Debug Step'
-      inputs:
-        script: echo "VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)"
-
     # Set the flags for testing, build here.
     # RunOnEnd_BUILD_TESTS=ON
     - task: CMake@1
@@ -187,24 +182,13 @@ stages:
         versionSpec: '>=6.0.0-0'
         checkLatest: true
     
-    - task: CmdLine@2
-      displayName: 'Debug Step'
-      inputs:
-        script: |
-          echo 'VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)'
-          echo "VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)"
-          echo "v  -- $(GITVERSION_MAJORMINORPATCH)"
-          echo "v. -- $(GITVERSION_COMMITSSINCEVERSIONSOURCE)"
-          echo "v  -- %GITVERSION_MAJORMINORPATCH%"
-          echo "v. -- %GITVERSION_COMMITSSINCEVERSIONSOURCE%"
-    
     - task: NuGetCommand@2
       displayName: 'NuGet pack'
       inputs:
         command: 'pack'
         packagesToPack: 'pack/*.nuspec'
         versioningScheme: 'off'
-        buildProperties: 'VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)'
+        buildProperties: 'VERSION=$(GITVERSION_MAJORMINORPATCH).$(GITVERSION_COMMITSSINCEVERSIONSOURCE)'
       condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Windows'))
 
     - task: NuGetCommand@2
@@ -224,10 +208,10 @@ stages:
         action: 'create'
         target: '$(Build.SourceVersion)'
         tagSource: 'userSpecifiedTag'
-        tag: '$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)'
-        title: 'v$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)'
+        tag: '$(GITVERSION_MAJORMINORPATCH).$(GITVERSION_COMMITSSINCEVERSIONSOURCE)'
+        title: 'v$(GITVERSION_MAJORMINORPATCH).$(GITVERSION_COMMITSSINCEVERSIONSOURCE)'
         releaseNotesSource: 'inline'
-        releaseNotesInline: 'v$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource). Documentation https://github.com/SiddiqSoft/RunOnEnd'
+        releaseNotesInline: 'v$(GITVERSION_MAJORMINORPATCH).$(GITVERSION_COMMITSSINCEVERSIONSOURCE). Documentation https://github.com/SiddiqSoft/RunOnEnd'
         isPreRelease: true
         changeLogCompareToRelease: 'lastFullRelease'
         changeLogType: 'commitBased'
