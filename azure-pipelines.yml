@@ -124,11 +124,12 @@ stages:
       continueOnError: false
       condition: succeeded()
 
+    # Limited to Linux AMD64 given bug in PublishCodeCoverageResult action.
     - task: PublishCodeCoverageResults@2
-      displayName: 'Publish Coverage Results (Linux builds)'
+      displayName: 'Publish Coverage Results (Linux builds x64)'
       inputs:
         summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/$(cmake.preset)/tests/results/coverage.*'
-      condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Linux'))
+      condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Linux'), startsWith(variables['Agent.OSArchitecture'], 'X64'))
 
 ################################## STAGE ####################################
 # STAGE: Pack_n_Publish                                                     #
