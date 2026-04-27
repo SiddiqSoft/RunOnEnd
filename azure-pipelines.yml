@@ -183,7 +183,7 @@ stages:
         checkLatest: true
     
     - task: CmdLine@2
-      displayName: "Debug Step"
+      displayName: 'Debug Step'
       inputs:
         script: echo "VERSION=$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)"
     
