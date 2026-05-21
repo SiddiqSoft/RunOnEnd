@@ -9,8 +9,8 @@ if(${${PROJECT_NAME}_BUILD_TESTS})
     #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -fprofile-arcs -ftest-coverage -fprofile-instr-generate -fcoverage-mapping")
     #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -fprofile-arcs -ftest-coverage -fprofile-instr-generate -fcoverage-mapping")
     #set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fprofile-instr-generate")
-    message(STATUS "${TESTPROJ} - Setting compiler flags for coverage: ${CMAKE_CXX_FLAGS}")
-    message(STATUS "${TESTPROJ} - Setting linker flags for coverage  : ${CMAKE_LINKER_FLAGS}")
+    #message(STATUS "${TESTPROJ} - Setting compiler flags for coverage: ${CMAKE_CXX_FLAGS}")
+    #message(STATUS "${TESTPROJ} - Setting linker flags for coverage  : ${CMAKE_LINKER_FLAGS}")
 
     target_sources( ${TESTPROJ}
                     PRIVATE
