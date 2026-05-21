@@ -6,9 +6,9 @@ if(${${PROJECT_NAME}_BUILD_TESTS})
     add_executable(${TESTPROJ})
 
     # For GCC/Clang coverage data to be included ONLY for our test
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -fprofile-arcs -ftest-coverage -fprofile-instr-generate -fcoverage-mapping")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -fprofile-arcs -ftest-coverage -fprofile-instr-generate -fcoverage-mapping")
     #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -fprofile-arcs -ftest-coverage -fprofile-instr-generate -fcoverage-mapping")
-    set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fprofile-instr-generate")
+    #set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fprofile-instr-generate")
     message(STATUS "${TESTPROJ} - Setting compiler flags for coverage: ${CMAKE_CXX_FLAGS}")
     message(STATUS "${TESTPROJ} - Setting linker flags for coverage  : ${CMAKE_LINKER_FLAGS}")
 
@@ -19,7 +19,7 @@ if(${${PROJECT_NAME}_BUILD_TESTS})
     include(GoogleTest)
     enable_testing()
 
-    target_compile_features(${TESTPROJ} PRIVATE cxx_std_2)
+    target_compile_features(${TESTPROJ} PRIVATE cxx_std_20)
     target_compile_options( ${TESTPROJ}
                             PRIVATE
                             $<$<CXX_COMPILER_ID:MSVC>:/std:c++20> )
