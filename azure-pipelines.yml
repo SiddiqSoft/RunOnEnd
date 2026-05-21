@@ -201,14 +201,7 @@ stages:
             displayName: NuGet Release
             PublishNuGet: ${{ variables.PublishNuGet }}
   
-      - ${{ if eq(variables.PublishGitHub, true) }}:
-        - template: .ci/az-publish-github.yml
-          parameters:
-            displayName: GitHub Release
-            PublishGitHub: ${{ variables.PublishGitHub }}
-      - job: Finalize
-        displayName: Finalize Pipeline
-        condition: succeeded()
-        steps:
-          - script: echo "Pipeline completed successfully!"
-            displayName: "Finalize"
+      - template: .ci/az-publish-github.yml
+        parameters:
+          displayName: GitHub Release
+          PublishGitHub: ${{ variables.PublishGitHub }}
