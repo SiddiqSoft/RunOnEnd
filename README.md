@@ -13,6 +13,12 @@ RunOnEnd : Run a lambda in destructor
 - Use the nuget [SiddiqSoft.RunOnEnd](https://www.nuget.org/packages/SiddiqSoft.RunOnEnd/)
 - Copy paste..whatever works.
 
+## Obsolesence
+
+The C++ Experimental Libraries v3 from the header file <experimental/scope> make this library obsolete.
+- [`std::experimental::unique_resource`](https://cppreference.com/cpp/experimental/unique_resource)
+- [`std::experimental::scope_success`](https://cppreference.com/cpp/experimental/scope_success)
+
 # Usage
 
 The utility can be used to ensure you cleanup within a scope, update some global variable or use the definition to build your own auto-cleanup.
